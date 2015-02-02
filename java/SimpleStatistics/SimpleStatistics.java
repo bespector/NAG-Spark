@@ -22,7 +22,7 @@ public class SimpleStatistics {
                         NAGSimpleStatistics ss = new NAGSimpleStatistics();
 
                         try {
-                                ss.NAGSimpleStatistics(doubleRDD, 3);
+                                ss.NAGSimpleStatistics(doubleRDD, 1);
                         } catch (Exception ex) {
                                 System.out.println("Something went wrong!!");
                         }

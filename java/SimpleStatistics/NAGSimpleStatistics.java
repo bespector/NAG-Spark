@@ -37,10 +37,11 @@ public class NAGSimpleStatistics {
                                 MRCOMM[i] = data1[i];
                                 MRCOMM[i+20] = data2[i];
                         }
+                        double[] RCOMM2 = new double[20];
                         int IWT = 0, PN = 0;
                         double XMEAN = 0.0, XSD = 0.0, XSKEW= 0.0, 
                         XKURT = 0.0, XMIN = 0.0, XMAX = 0.0;
-                        g01au.eval(2, MRCOMM, PN, XMEAN, XSD, XSKEW, XKURT, XMIN, XMAX, data1, IFAIL);
+                        g01au.eval(2, MRCOMM, PN, XMEAN, XSD, XSKEW, XKURT, XMIN, XMAX, RCOMM2, IFAIL);
         
                         if(g01au.getIFAIL()>0) {
                                 System.out.println("Error with g01au!!!");
@@ -60,23 +61,24 @@ public class NAGSimpleStatistics {
               while(iter.hasNext()) {
                         mypoints.add(iter.next());                      
                }
-
-               double[] data = new double [mypoints.size()];
+                
+                double[] data = new double [mypoints.size()];
                 for(int i=0;i<mypoints.size();i++)
                         data[i]=mypoints.get(i);
-               G01AT g01at = new G01AT();
+                G01AT g01at = new G01AT();
                 int IWT = 0, PN = 0, IFAIL = 1;
-                double XMEAN = 0.0, XSD = 0.0, XSKEW= 0.0, XKURT = 0.0, XMIN = 0.0, XMAX = 0.0;
+                double XMEAN = 0.0, XSD = 0.0, XSKEW= 0.0, 
+                        XKURT = 0.0, XMIN = 0.0, XMAX = 0.0;
                 double[] WT=new double[1];
                 double[] RCOMM = new double[20];
 
                 g01at.eval(data.length, data, IWT, WT, PN, XMEAN, XSD, 
                                         XSKEW, XKURT, XMIN, XMAX, RCOMM, IFAIL);
         
-                        if(g01at.getIFAIL()>0) {
-                                System.out.println("Error with g01at!!!");
-                                System.exit(1);
-                        }            
+                if(g01at.getIFAIL()>0) {
+                        System.out.println("Error with g01at!!!");
+                        System.exit(1);
+                }            
 
 	      return Arrays.asList(RCOMM);
 	    }
@@ -95,7 +97,7 @@ public class NAGSimpleStatistics {
                         XKURT = 0.0, XMIN = 0.0, XMAX = 0.0;
 
                 G01AU g01au = new G01AU();
-                g01au.eval(2, dataset, PN, XMEAN, XSD, XSKEW, XKURT, XMIN, XMAX, dataset, IFAIL);
+                g01au.eval(1, dataset, PN, XMEAN, XSD, XSKEW, XKURT, XMIN, XMAX, dataset, IFAIL);
         
                 if(g01au.getIFAIL()>0) {
                          System.out.println("Error with g01au!!!");
