@@ -13,7 +13,7 @@ CLASSPATH = .:$(NAGJAVA)/jar/NAGJava.jar:$(SPARKCP)
 LD_LIBRARY_PATH=$(NAGDIR)/rtl/:$(NAGDIR)/lib/:$(NAGJAVA)/linux_x64/
 export LD_LIBRARY_PATH
 
-linearReg.class: SimpleStatistics.java NAGSimpleStatistics.java
+SimpleStatistics.class: SimpleStatistics.java NAGSimpleStatistics.java
 	$(JC) $(JFLAGS) -cp $(CLASSPATH) NAGSimpleStatistics.java SimpleStatistics.java
        
 run:
