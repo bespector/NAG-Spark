@@ -46,7 +46,7 @@ public class LinearRegression {
                 	NAGLinearRegression lr = new NAGLinearRegression();
                         try {
 			        lr.analize(points);
-                                lr.writeLogFile("log.txt");
+                                lr.writeLogFile("Results.txt");
                         } catch (Exception e) {
                                 System.out.println("Error with analysis!!");
                                 e.printStackTrace();
