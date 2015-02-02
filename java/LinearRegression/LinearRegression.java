@@ -45,7 +45,7 @@ public class LinearRegression {
                        	JavaRDD<LabeledPoint> points = fileContent.map(new ParsePoint()).cache();
                 	NAGLinearRegression lr = new NAGLinearRegression();
                         try {
-			        lr.analize(points);
+			        lr.RunRegression(points);
                                 lr.writeLogFile("Results.txt");
                         } catch (Exception e) {
                                 System.out.println("Error with analysis!!");

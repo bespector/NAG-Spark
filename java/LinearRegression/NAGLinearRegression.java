@@ -25,7 +25,6 @@ import com.nag.routines.F01.F01ZA;
 public class NAGLinearRegression {
 
 	private int _numvars;
-      	private JavaRDD<LabeledPoint> _points;		
         private int _dataSize;
         private int _chunkSize = 1000;
         private double[] _CON ;
@@ -95,21 +94,12 @@ public class NAGLinearRegression {
 	    }
         }
 
-	public void analize(JavaRDD<LabeledPoint> points) throws NAGBadIntegerException {
-                 Routine.init();                
-                _points = points;
-                _numvars = points.take(1).get(0).features().size() + 1;               
-                 try{
-                        RunRegression(_points);
-                } catch (Exception e) {
-                        System.out.println("Error with NAG Regression");
-                        e.printStackTrace();
-                        System.exit(1);
-                }                        
-        }
-	
-        private void RunRegression(JavaRDD<LabeledPoint> mypoints)
+        public void RunRegression(JavaRDD<LabeledPoint> mypoints)
                                         throws NAGBadIntegerException {
+
+                Routine.init();                
+                _numvars = mypoints.take(1).get(0).features().size() + 1;               
+
                 long startTime = System.currentTimeMillis();
 
                 _dataSize = (int) mypoints.count();                
