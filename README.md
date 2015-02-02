@@ -21,7 +21,7 @@ Coming Soon
 Produced by experts for use in a variety of applications, the NAG Library is the largest commercially available collection of numerical and statistical algorithms in the world. With over 1,600 tried and tested routines that are both flexible and portable it remains at the core of thousands of programs and applications spanning the globe.
 
 NAG Functionality includes
- - Optimization (Linear, Quadratic, Nonlinear, Least-Squares)
+ - Optimization (Linear, Quadratic, Nonlinear, and Least-Squares Solvers)
  - Correlation and Regression Analysis
  - Statistics
  - Ordinary and Partial Differential Equations
