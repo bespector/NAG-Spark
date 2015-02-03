@@ -47,7 +47,6 @@ public class NAGSimpleStatistics {
                         for(int i=0;i<20;i++) {
                                 data1[i+20] = data2[i];
                         }
-                        double[] RCOMM2 = new double[20];
                         int IWT = 0, PN = 0, IFAIL = 1;
                         double XMEAN = 0.0, XSD = 0.0, XSKEW= 0.0, 
                         XKURT = 0.0, XMIN = 0.0, XMAX = 0.0;
@@ -80,7 +79,7 @@ public class NAGSimpleStatistics {
                 int IWT = 0, PN = 0, IFAIL = 1;
                 double XMEAN = 0.0, XSD = 0.0, XSKEW= 0.0, 
                         XKURT = 0.0, XMIN = 0.0, XMAX = 0.0;
-                double[] WT=new double[1];
+                double[] WT = new double[1];
                 double[] RCOMM = new double[40];
 
                 G01AT g01at = new G01AT();
@@ -97,7 +96,7 @@ public class NAGSimpleStatistics {
         }
 
         public void NAGSimpleStatistics(JavaDoubleRDD doublerdd, 
-                                        int numPartitions)throws Exception {
+                                        int numPartitions) throws Exception {
 
                 Routine.init();
 
