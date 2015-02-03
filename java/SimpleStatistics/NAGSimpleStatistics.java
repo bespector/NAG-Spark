@@ -27,6 +27,25 @@ public class NAGSimpleStatistics {
         private double _xmin;
         private double _xmax;
 
+        public double getMEAN() {
+                return _xmean;
+        }
+        public double getSD() {
+                return _xsd;
+        }
+        public double getSKEW() {
+                return _xskew;
+        }
+        public double getKURT() {
+                return _xkurt;
+        }
+        public double getMIN() {
+                return _xmin;
+        }
+        public double getMAX() {
+                return _xmax;
+        }
+
         static class CombineNAGData implements Function2<double[],double[],double[]> {
                 @Override
                 public double[] call(double[] data1,double[] data2) throws Exception {
@@ -110,12 +129,5 @@ public class NAGSimpleStatistics {
                 _xkurt = g01au.getXKURT();            
                 _xmin = g01au.getXMIN();            
                 _xmax = g01au.getXMAX();            
-                System.out.println("mean = " + _xmean);
-                System.out.println("sd = " + _xsd);
-                System.out.println("skew = " + _xskew);
-                System.out.println("kurt = " + _xkurt);
-                System.out.println("min = " + _xmin);
-                System.out.println("max = " + _xmax);
-
                }
 }

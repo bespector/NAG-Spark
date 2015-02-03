@@ -26,5 +26,13 @@ public class SimpleStatistics {
                         } catch (Exception ex) {
                                 System.out.println("Something went wrong!!");
                         }
+                System.out.println("mean = " + ss.getMEAN());
+                System.out.println("sd = " + ss.getSD());
+                System.out.println("skew = " + ss.getSKEW());
+                System.out.println("kurt = " + ss.getKURT());
+                System.out.println("min = " + ss.getMIN());
+                System.out.println("max = " + ss.getMAX());
+
+
         }
 }
