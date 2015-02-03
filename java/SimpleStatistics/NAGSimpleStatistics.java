@@ -4,9 +4,9 @@ import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import org.apache.spark.api.java.JavaDoubleRDD;
 import org.apache.spark.api.java.function.Function2;
 import org.apache.spark.api.java.function.FlatMapFunction;
-import org.apache.spark.api.java.JavaDoubleRDD;
 
 import com.nag.routines.Routine;
 import com.nag.routines.G01.G01AT;
