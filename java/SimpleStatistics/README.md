@@ -1,4 +1,4 @@
-# NAGLinearRegression on Spark
+# NAGSimpleStatistics on Spark
 
 This examples uses two NAG functions to compute summary information on a *JavaDoubleRDD*.
 
