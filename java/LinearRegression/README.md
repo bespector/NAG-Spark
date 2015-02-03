@@ -5,13 +5,13 @@ This examples uses a variety of NAG functions to compute a multiple linear regre
 NAG functions used:
 - G02BU (Computes weighted sum of squares matrix)
 - G02BZ (Combines two sums of squares matrices)
-- G02CG (Multiple linear regression, from correlation coefficients, with constant term)
 - G02BW (Computes a correlation matrix from a sum of squares matrix)
+- G02CG (Multiple linear regression, from correlation coefficients, with constant term)
 - F01ZA (Utility routine for matrix conversion)
 
 ### The Data
 
-The data is generated in the same format as the mllib regression data. It is designed to predict the salary of an employee based on a number of factors (age, experience, supervisor rating, industry).
+The data is generated in the same format as the mllib regression data. It is designed to predict the salary of an employee based on a number of factors (age, years experience, supervisor rating, industry).
 
 | Salery  | Age  | Experience  | Rating  | Industry  |
 |---|---|---|---|---|
