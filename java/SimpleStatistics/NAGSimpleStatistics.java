@@ -4,13 +4,7 @@ import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import java.io.FileWriter;
-import java.io.File;
-import java.io.BufferedWriter;
-
-import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.function.Function2;
-import org.apache.spark.api.java.function.Function;
 import org.apache.spark.api.java.function.FlatMapFunction;
 import org.apache.spark.api.java.JavaDoubleRDD;
 
@@ -49,24 +43,22 @@ public class NAGSimpleStatistics {
         static class CombineNAGData implements Function2<double[],double[],double[]> {
                 @Override
                 public double[] call(double[] data1,double[] data2) throws Exception {
-                        G01AU g01au = new G01AU();
-                        int IFAIL = 1;
-                        double[] MRCOMM = new double[20*2];
+                        
                         for(int i=0;i<20;i++) {
-                                MRCOMM[i] = data1[i];
-                                MRCOMM[i+20] = data2[i];
+                                data1[i+20] = data2[i];
                         }
                         double[] RCOMM2 = new double[20];
-                        int IWT = 0, PN = 0;
+                        int IWT = 0, PN = 0, IFAIL = 1;
                         double XMEAN = 0.0, XSD = 0.0, XSKEW= 0.0, 
                         XKURT = 0.0, XMIN = 0.0, XMAX = 0.0;
-                        g01au.eval(2, MRCOMM, PN, XMEAN, XSD, XSKEW, XKURT, XMIN, XMAX, RCOMM2, IFAIL);
+                        G01AU g01au = new G01AU();                        
+                        g01au.eval(2, data1, PN, XMEAN, XSD, XSKEW, XKURT, 
+                                                XMIN, XMAX, data1, IFAIL);
         
                         if(g01au.getIFAIL()>0) {
                                 System.out.println("Error with g01au!!!");
                                 System.exit(1);
                         }            
-
                         return data1;
                 }
         }        
@@ -84,13 +76,14 @@ public class NAGSimpleStatistics {
                 double[] data = new double [mypoints.size()];
                 for(int i=0;i<mypoints.size();i++)
                         data[i]=mypoints.get(i);
-                G01AT g01at = new G01AT();
+                
                 int IWT = 0, PN = 0, IFAIL = 1;
                 double XMEAN = 0.0, XSD = 0.0, XSKEW= 0.0, 
                         XKURT = 0.0, XMIN = 0.0, XMAX = 0.0;
                 double[] WT=new double[1];
-                double[] RCOMM = new double[20];
+                double[] RCOMM = new double[40];
 
+                G01AT g01at = new G01AT();
                 g01at.eval(data.length, data, IWT, WT, PN, XMEAN, XSD, 
                                         XSKEW, XKURT, XMIN, XMAX, RCOMM, IFAIL);
         
@@ -103,7 +96,8 @@ public class NAGSimpleStatistics {
 	    }
         }
 
-        public void NAGSimpleStatistics(JavaDoubleRDD doublerdd, int numPartitions)throws Exception{
+        public void NAGSimpleStatistics(JavaDoubleRDD doublerdd, 
+                                        int numPartitions)throws Exception {
 
                 Routine.init();
 
@@ -116,10 +110,11 @@ public class NAGSimpleStatistics {
                         XKURT = 0.0, XMIN = 0.0, XMAX = 0.0;
 
                 G01AU g01au = new G01AU();
-                g01au.eval(1, dataset, PN, XMEAN, XSD, XSKEW, XKURT, XMIN, XMAX, dataset, IFAIL);
+                g01au.eval(1, dataset, PN, XMEAN, XSD, XSKEW, XKURT, XMIN, 
+                                                        XMAX, dataset, IFAIL);
         
                 if(g01au.getIFAIL()>0) {
-                         System.out.println("Error with g01au!!!");
+                        System.out.println("Error with g01au!!!");
                         System.exit(1);
                 }
 
@@ -129,5 +124,6 @@ public class NAGSimpleStatistics {
                 _xkurt = g01au.getXKURT();            
                 _xmin = g01au.getXMIN();            
                 _xmax = g01au.getXMAX();            
-               }
+ 
+       }
 }

@@ -17,7 +17,6 @@ public class SimpleStatistics {
                         List<Double> data = Arrays.asList(1.5, 2.0, 3.5, 4.0, 
                                                 5.5, 6.0, 7.5, 8.0, 9.5, 10.0);
                                                 
-
                         JavaDoubleRDD doubleRDD = ctx.parallelizeDoubles(data); 
                         NAGSimpleStatistics ss = new NAGSimpleStatistics();
 
