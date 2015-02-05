@@ -102,9 +102,13 @@ public class generateData {
                 double salery = base + age * factors[0] + exp * factors[1] + 
                                 rating * factors[2] + area[(int) industry] + RANDOM[0];
 
+                g05sa.eval(1, STATE, RANDOM, IFAIL);
                 salery = age > 18 ? salery : 0;
                 salery = age < 65 ? salery : salery * 2 / 5;
                 
+                if(RANDOM[0]<.01)
+                        salery += 50000;
+
                 return String.format("%.1f,%.1f %.1f %.2f %d", salery, age, exp, 
                                                                 rating, (int)industry);        
         }
