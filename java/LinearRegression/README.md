@@ -11,7 +11,7 @@ NAG functions used:
 
 ### The Data
 
-The data is generated in the same format as the mllib regression data. It is designed to predict the salary of an employee based on a number of factors (age, years experience, supervisor rating, industry).
+The data is designed to predict the salary of an employee based on a number of factors (age [18>], years experience [0>], supervisor rating [0-10], industry [0, 1, 2]).
 
 | Salery  | Age  | Experience  | Rating  | Industry  |
 |---|---|---|---|---|
