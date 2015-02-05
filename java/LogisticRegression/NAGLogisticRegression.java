@@ -15,6 +15,8 @@ public class NAGLogisticRegression {
         private static JavaRDD<LabeledPoint> _points;
         private int _N;
         private static double _subsample = 1.0;
+        private double[] _factors;
+
 
         static class VectorSum implements Function2<double[], double[], double[]> {
                 @Override
@@ -42,12 +44,12 @@ public class NAGLogisticRegression {
                         double[] data = p.features().toArray();
 
                         xb=0.0;
-                      	for (int i = 0; i < 4; i++)
+                      	for (int i = 0; i < data.length; i++)
                        		xb += data[i]*gX[i];
 		
         		xby = xb * p.label();
 			gradient[0] = (xby - Math.log(1.0 + Math.exp(xb)));
-	        	for (int i = 0; i < 4; i++)
+	        	for (int i = 0; i < data.length; i++)
 	        		gradient[i+1] = data[i] * (p.label() - 1.0 / 
                                                 (1.0 + Math.exp(-1.0 * xb)));
                         return gradient;    
@@ -63,7 +65,7 @@ public class NAGLogisticRegression {
 
                         this.setFC(-1.0 * gradient[0]);
                         for(int i=0;i<N;i++)
-                        GC[i] = -1.0*gradient[i+1];                
+                                GC[i] = -1.0*gradient[i+1];                
         	}
         }
         
@@ -72,6 +74,7 @@ public class NAGLogisticRegression {
                 Routine.init();
                 _points = points;
                 _N = _points.take(1).get(0).features().size();
+
         }
         
         public void train() throws Exception {
@@ -98,5 +101,6 @@ public class NAGLogisticRegression {
                 for(int i=0;i<N;i++)
                         System.out.println("X[" + i + "] = " + X[i]);
                 System.out.println("IFAIL =  " + e04ky.getIFAIL());
+                _factors = X;
         }
 }
