@@ -10,7 +10,6 @@ import org.apache.spark.api.java.function.FlatMapFunction;
 import org.apache.spark.api.java.function.Function;
 import org.apache.spark.mllib.linalg.Vectors;
 import org.apache.spark.mllib.regression.LabeledPoint;
-//import org.apache.spark.mllib.linalg.BLAS.dot;
 
 import com.nag.routines.Routine;
 import com.nag.routines.E04.E04KY;
@@ -23,11 +22,13 @@ public class NAGLogisticRegression {
 
         static class VectorSum implements Function2<double[], double[], double[]> {
                 @Override
+
                 public double[] call(double[] a, double[] b) {
+                        double[] c = new double[5];
                         for (int i = 0; i < a.length; i++) {
-                                a[i] += b[i];
+                                c[i] = a[i] + b[i];
                         }
-                        return a;
+                        return c;
                 }
         }
         static class ComputeGradient implements Function<LabeledPoint, double[]> {
@@ -43,31 +44,30 @@ public class NAGLogisticRegression {
                 public double[] call(LabeledPoint p) {
                         double[] gradient = new double[gX.length + 1];
                         double[] data = p.features().toArray();
-//	                for (int rec = 0; rec < gNumRecords; rec++){
+
                         xb=0.0;
-                      	for (int i = 0; i < gX.length + 1; i++)
+                      	for (int i = 0; i < 4; i++)
                        		xb += data[i]*gX[i];
 		
         		xby = xb * p.label();
-			gradient[0] += xby - Math.log(1.0 + Math.exp(xb));
-	        	for (int i = 0; i < gX.length; i++)
-	        		gradient[i+1] = data[i] * (p.label() - 1.0 / (1.0 + Math.exp(-1.0 * xb)));
-  //                      }*/
-                      return gradient;    
+			gradient[0] = (xby - Math.log(1.0 + Math.exp(xb)));
+	        	for (int i = 0; i < 4; i++)
+	        		gradient[i+1] = data[i] * (p.label() - 1.0 / 
+                                                (1.0 + Math.exp(-1.0 * xb)));
+                        return gradient;    
                 }
         }
 
   public static class OBJFUN extends E04KY.Abstract_E04KY_FUNCT2 {
 
         public void eval() {
-
-                double[] gradient = _points.map(new ComputeGradient(XC)).reduce(new VectorSum());  
  
-                this.setFC(gradient[0]);
+                double[] gradient = _points.map(new ComputeGradient(XC)).reduce(new VectorSum());  
+
+                this.setFC(-1.0 * gradient[0]);
 
                 for(int i=0;i<N;i++)
                         GC[i] = -1.0*gradient[i+1];                
-  //              }*/
 	}
    }
         
@@ -87,18 +87,21 @@ public class NAGLogisticRegression {
                 IW = new int[LIW];
                 IUSER = new int[1];
                 W = new double[LW];
-                BL = new double[1];
-                BU = new double[1];
+                BL = new double[N];
+                BU = new double[N];
                 X = new double[N];
                 G = new double[N];
                 RUSER = new double[1];
+                for(int i=0;i<N;i++)
+                        X[i]=.5;
 
                 OBJFUN objfun = new OBJFUN();                         
                 E04KY e04ky = new E04KY();
                 e04ky.eval(N, IBOUND, objfun, BL, BU, X, F, G, 
                                                 IW, LIW, W, LW, IUSER, RUSER, IFAIL);
                 for(int i=0;i<N;i++)
-                        System.out.println("ASD     " + X[i]);
+                        System.out.println("ANSWER     " + X[i]);
+                System.out.println("IFAIL ===  " + e04ky.getIFAIL());
 
         }
 }

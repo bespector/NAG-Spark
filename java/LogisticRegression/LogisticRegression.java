@@ -14,11 +14,15 @@ public class LogisticRegression {
 	    public LabeledPoint call(String line) {
               String[] parts = line.split(",");
 //	      String[] tok = parts[1].split(" ");
-	      double[] x = new double[parts.length-1];
+	      double[] x = new double[parts.length];
               double label = Integer.parseInt(parts[0]);
-	      for (int i = 0; i < parts.length-1; i++) {
-	        x[i] = Double.parseDouble(parts[i+1]);
+              x[0] = 1;
+              
+	      for (int i = 1; i < parts.length; i++) {
+	        x[i] = Double.parseDouble(parts[i]);
+
               }	      
+
 	      return new LabeledPoint(label, Vectors.dense(x));
 	    }
 	  }
