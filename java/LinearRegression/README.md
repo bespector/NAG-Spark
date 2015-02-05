@@ -3,11 +3,11 @@
 This examples uses a variety of NAG functions to compute a multiple linear regression on big data. The data is process in blocks of *chucksize* set in the *NAGLinearRegression.java* file.
 
 NAG functions used:
-- [G02BU]  (Computes weighted sum of squares matrix)
-- [G02BZ]  (Combines two sums of squares matrices)
-- [G02BW]  (Computes a correlation matrix from a sum of squares matrix)
-- [G02CG]  (Multiple linear regression, from correlation coefficients, with constant term)
-- [F01ZA]  (Utility routine for matrix conversion)
+- [G02BU]  - Computes weighted sum of squares matrix
+- [G02BZ]  - Combines two sums of squares matrices
+- [G02BW]  - Computes a correlation matrix from a sum of squares matrix
+- [G02CG]  - Multiple linear regression, from correlation coefficients, with constant term
+- [F01ZA]  - Utility routine for matrix conversion
 
 ### The Data
 
