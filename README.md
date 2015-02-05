@@ -35,6 +35,7 @@ Free 60-day NAG licenses are available. To obtain a license, email support@nag.c
  - Originization
  - Country
  - Library you would like trial (Java or Python for these links)
+
 Support will then email you download instructions and send a license key.
 
 ### About NAG
