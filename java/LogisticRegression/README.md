@@ -3,7 +3,7 @@
 This examples computes a logistic regression on sampledata.
 
 NAG functions used:
-- [E04KY] (Minimum, function of several variable, quasi-Newton algorithm, simple bounds, using first derivatives)
+- [E04KY] - Minimum, function of several variable, quasi-Newton algorithm, simple bounds, using first derivatives
 
 ### The Data
 
