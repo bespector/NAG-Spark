@@ -3,11 +3,11 @@
 This examples uses a variety of NAG functions to compute a multiple linear regression on big data. The data is process in blocks of *chucksize* set in the *NAGLinearRegression.java* file.
 
 NAG functions used:
-- G02BU (Computes weighted sum of squares matrix)
-- G02BZ (Combines two sums of squares matrices)
-- G02BW (Computes a correlation matrix from a sum of squares matrix)
-- G02CG (Multiple linear regression, from correlation coefficients, with constant term)
-- F01ZA (Utility routine for matrix conversion)
+- [G02BU] (Computes weighted sum of squares matrix)
+- [G02BZ] (Combines two sums of squares matrices)
+- [G02BW] (Computes a correlation matrix from a sum of squares matrix)
+- [G02CG] (Multiple linear regression, from correlation coefficients, with constant term)
+- [F01ZA] (Utility routine for matrix conversion)
 
 ### The Data
 
@@ -22,5 +22,13 @@ The data is designed to predict the salary of an employee based on a number of f
 
 You can generate the data via
 ```sh
-$  java LinearRegression generateData <folder> <numRecords> <numFiles>"
+$  java LinearRegression generateLinearData <folder> <numRecords> <numFiles>"
 ```
+
+[G02BU]: http://www.nag.com/numeric/fl/nagdoc_fl24/html/G02/g02buf.html
+[G02BZ]: http://www.nag.com/numeric/fl/nagdoc_fl24/html/G02/g02bzf.html
+[G02BW]: http://www.nag.com/numeric/fl/nagdoc_fl24/html/G02/g02bwf.html
+[G02CG]: http://www.nag.com/numeric/fl/nagdoc_fl24/html/G02/g02cgf.html
+[F01ZA]: http://www.nag.com/numeric/fl/nagdoc_fl24/html/F01/f01zaf.html
+
+
