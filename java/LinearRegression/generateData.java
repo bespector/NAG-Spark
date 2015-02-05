@@ -14,7 +14,8 @@ public class generateData {
         static String folder;
         static int numRecords;
         static int numFiles;
-        static double[] factors = {1000, 300, 500, 5000};
+        static double[] factors = {1000, 300, 500};
+        static double[] area = {0, 5000, 13000};
         int[] STATE;        
         int GENID,SUBID,LSEED,LSTATE;        
         int [] SEED;
@@ -97,8 +98,10 @@ public class generateData {
 
         	double[] RANDOM = new double[1];
                 g05sk.eval(1, 0, 15000, STATE, RANDOM, IFAIL);
+
                 double salery = base + age * factors[0] + exp * factors[1] + 
-                                rating * factors[2] + industry * factors[3] + RANDOM[0];
+                                rating * factors[2] + area[(int) industry] + RANDOM[0];
+
                 salery = age > 18 ? salery : 0;
                 salery = age < 65 ? salery : salery * 2 / 5;
                 
