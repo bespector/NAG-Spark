@@ -1,12 +1,7 @@
 import java.io.IOException;
-import java.util.List;
-import java.util.Arrays;
-import java.util.ArrayList;
-import java.util.Iterator;
 
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.function.Function2;
-import org.apache.spark.api.java.function.FlatMapFunction;
 import org.apache.spark.api.java.function.Function;
 import org.apache.spark.mllib.linalg.Vectors;
 import org.apache.spark.mllib.regression.LabeledPoint;
@@ -19,18 +14,19 @@ public class NAGLogisticRegression {
 
         private static JavaRDD<LabeledPoint> _points;
         private int _N;
+        private static double _subsample = 1.0;
 
         static class VectorSum implements Function2<double[], double[], double[]> {
                 @Override
 
                 public double[] call(double[] a, double[] b) {
-                        double[] c = new double[5];
                         for (int i = 0; i < a.length; i++) {
-                                c[i] = a[i] + b[i];
+                                a[i] += b[i];
                         }
-                        return c;
+                        return a;
                 }
         }
+
         static class ComputeGradient implements Function<LabeledPoint, double[]> {
                 private final double[] gX;
                 double xb = 0.0;
@@ -58,29 +54,29 @@ public class NAGLogisticRegression {
                 }
         }
 
-  public static class OBJFUN extends E04KY.Abstract_E04KY_FUNCT2 {
+        public static class OBJFUN extends E04KY.Abstract_E04KY_FUNCT2 {
 
-        public void eval() {
- 
-                double[] gradient = _points.map(new ComputeGradient(XC)).reduce(new VectorSum());  
+                public void eval() {
+                        double[] gradient = _points.sample(false, _subsample)
+                                                .map(new ComputeGradient(XC))
+                                                .reduce(new VectorSum());  
 
-                this.setFC(-1.0 * gradient[0]);
-
-                for(int i=0;i<N;i++)
+                        this.setFC(-1.0 * gradient[0]);
+                        for(int i=0;i<N;i++)
                         GC[i] = -1.0*gradient[i+1];                
-	}
-   }
+        	}
+        }
         
         public   NAGLogisticRegression(JavaRDD<LabeledPoint> points)  {
 
                 Routine.init();
-
                 _points = points;
                 _N = _points.take(1).get(0).features().size();
         }
         
         public void train() throws Exception {
-                int N = _N, IBOUND = 1, LIW = _N+2, LW = Math.max(10*_N + _N*(_N-1)/2,11), IFAIL = 1;
+                int N = _N, IBOUND = 1, LIW = _N+2, IFAIL = 1,
+                        LW = Math.max(10*_N + _N*(_N-1)/2,11);
                 int[] IW, IUSER;
                 double[] BL, BU, X, G, W, RUSER;
                 double F=0;
@@ -93,15 +89,14 @@ public class NAGLogisticRegression {
                 G = new double[N];
                 RUSER = new double[1];
                 for(int i=0;i<N;i++)
-                        X[i]=.5;
+                        X[i] = 0.5;
 
                 OBJFUN objfun = new OBJFUN();                         
                 E04KY e04ky = new E04KY();
-                e04ky.eval(N, IBOUND, objfun, BL, BU, X, F, G, 
-                                                IW, LIW, W, LW, IUSER, RUSER, IFAIL);
+                e04ky.eval(N, IBOUND, objfun, BL, BU, X, F, G, IW, LIW, W, 
+                                                LW, IUSER, RUSER, IFAIL);
                 for(int i=0;i<N;i++)
-                        System.out.println("ANSWER     " + X[i]);
-                System.out.println("IFAIL ===  " + e04ky.getIFAIL());
-
+                        System.out.println("X[" + i + "] = " + X[i]);
+                System.out.println("IFAIL =  " + e04ky.getIFAIL());
         }
 }
