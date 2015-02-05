@@ -1,4 +1,4 @@
-JFLAGS = -g -Xlint:unchecked
+JFLAGS = -g
 JC = javac
 JR = java
 
@@ -17,7 +17,7 @@ LogisticRegression.class: LogisticRegression.java NAGLogisticRegression.java
 	$(JC) $(JFLAGS) -cp $(CLASSPATH) NAGLogisticRegression.java LogisticRegression.java
        
 run:
-	$(JR) -cp $(CLASSPATH) LogisticRegression runRegression data
+	$(JR) -cp $(CLASSPATH) LogisticRegression "../../data/logRegressionData"
 
 clean:
 	$(RM) *.class

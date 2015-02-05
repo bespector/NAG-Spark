@@ -25,35 +25,21 @@ public class LinearRegression {
 
 	public static void main(String[] args) {
                            
-               if(args[0].equals("generateData")) {       
-                        try{
-                                generateData data = new generateData(args);
-                                data.generate();
-                        } catch (Exception e) {
-        			System.out.println("Error with NAG Library!");
-        			e.printStackTrace();
-                                System.exit(1);
-        		}             	
-                } else if (args[0].equals("runRegression")) {
+                SparkConf conf = new SparkConf()
+                        .setAppName("NAG Linear Regression Example")
+                        .setMaster("local");
+                JavaSparkContext ctx = new JavaSparkContext(conf);
 
-                        SparkConf conf = new SparkConf()
-                                        .setAppName("NAG Linear Regression Example")
-                                        .setMaster("local");
-                        JavaSparkContext ctx = new JavaSparkContext(conf);
-
-                	JavaRDD<String> fileContent = ctx.textFile(args[1]);	
-                       	JavaRDD<LabeledPoint> points = fileContent.map(new ParsePoint()).cache();
-                	NAGLinearRegression lr = new NAGLinearRegression();
-                        try {
-			        lr.RunRegression(points);
-                                lr.writeLogFile("Results.txt");
-                        } catch (Exception e) {
-                                System.out.println("Error with analysis!!");
-                                e.printStackTrace();
-                        }
+        	JavaRDD<String> fileContent = ctx.textFile(args[0]);	
+               	JavaRDD<LabeledPoint> points = fileContent.map(new ParsePoint()).cache();
+        	NAGLinearRegression lr = new NAGLinearRegression();
+                try {
+                        lr.RunRegression(points);
+                        lr.writeLogFile("LogisticResults.txt");
+                } catch (Exception e) {
+                      System.out.println("Error with analysis!!");
+                      e.printStackTrace();
+                }
                         
-		} else
-		System.out.println("Usage: generateData/runRegression folder numRecords numFiles");
-
 	}
 }

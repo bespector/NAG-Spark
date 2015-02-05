@@ -1,9 +1,8 @@
 import java.io.IOException;
 
 import org.apache.spark.api.java.JavaRDD;
-import org.apache.spark.api.java.function.Function2;
 import org.apache.spark.api.java.function.Function;
-import org.apache.spark.mllib.linalg.Vectors;
+import org.apache.spark.api.java.function.Function2;
 import org.apache.spark.mllib.regression.LabeledPoint;
 
 import com.nag.routines.Routine;

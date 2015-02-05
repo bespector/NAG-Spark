@@ -13,16 +13,11 @@ CLASSPATH = .:$(NAGJAVA)/jar/NAGJava.jar:$(SPARKCP)
 LD_LIBRARY_PATH=$(NAGDIR)/rtl/:$(NAGDIR)/lib/:$(NAGJAVA)/linux_x64/
 export LD_LIBRARY_PATH
 
-LinearRegression.class: LinearRegression.java NAGLinearRegression.java generateData.java
-	$(JC) $(JFLAGS) -cp $(CLASSPATH) generateData.java NAGLinearRegression.java LinearRegression.java
+LinearRegression.class: LinearRegression.java NAGLinearRegression.java
+	$(JC) $(JFLAGS) -cp $(CLASSPATH) NAGLinearRegression.java LinearRegression.java
         
-# Generate 3 files, 1000 records each in the 'data' folder
-generateData:
-	$(JR) -cp $(CLASSPATH) LinearRegression generateData data 1000 3
-
-# Run the regression from files in 'data' folder
 run:
-	$(JR) -cp $(CLASSPATH) LinearRegression runRegression "data"
+	$(JR) -cp $(CLASSPATH) LinearRegression "../../data/linearRegressionData"
 
 clean:
 	$(RM) *.class

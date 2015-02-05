@@ -20,11 +20,6 @@ The data is designed to predict the salary of an employee based on a number of f
 |54803.7|25.8|3.8 |5.91|1|
 |62919.5|32.7|8.0 |2.18|2|
 
-You can generate the data via
-```sh
-$  java LinearRegression generateLinearData <folder> <numRecords> <numFiles>"
-```
-
 [G02BU]: http://www.nag.com/numeric/fl/nagdoc_fl24/html/G02/g02buf.html
 [G02BZ]: http://www.nag.com/numeric/fl/nagdoc_fl24/html/G02/g02bzf.html
 [G02BW]: http://www.nag.com/numeric/fl/nagdoc_fl24/html/G02/g02bwf.html
