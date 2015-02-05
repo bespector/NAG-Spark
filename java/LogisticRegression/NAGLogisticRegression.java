@@ -4,6 +4,7 @@ import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.function.Function;
 import org.apache.spark.api.java.function.Function2;
 import org.apache.spark.mllib.regression.LabeledPoint;
+import org.apache.spark.mllib.linalg.Vector;
 
 import com.nag.routines.Routine;
 import com.nag.routines.E04.E04KY;
@@ -14,8 +15,8 @@ public class NAGLogisticRegression {
         private static JavaRDD<LabeledPoint> _points;
         private int _N;
         private static double _subsample = 1.0;
-        private double[] _factors;
-
+        private double[] _factors = null;
+        private boolean _intercept = true;
 
         static class VectorSum implements Function2<double[], double[], double[]> {
                 @Override
@@ -81,7 +82,8 @@ public class NAGLogisticRegression {
                         LW = Math.max(10*_N + _N*(_N-1)/2,11);
                 int[] IW, IUSER;
                 double[] BL, BU, X, G, W, RUSER;
-                double F=0;
+                double F = 0;
+
                 IW = new int[LIW];
                 IUSER = new int[1];
                 W = new double[LW];
@@ -102,4 +104,18 @@ public class NAGLogisticRegression {
                 System.out.println("IFAIL =  " + e04ky.getIFAIL());
                 _factors = X;
         }
+
+        public double predict(Vector a_vector) {
+                if(_factors == null) {
+                        System.out.println("Factors are null, run regression first.");
+                        System.exit(1);                
+                }
+                double[] data = a_vector.toArray();
+                double prob = _factors[0];
+                for(int i=0;i<_factors.length-1;i++)
+                        prob+=data[i]*_factors[i+1];
+                prob = 1.0/(1.0+Math.exp(-1.0*prob));
+                return prob;
+        }
+
 }
