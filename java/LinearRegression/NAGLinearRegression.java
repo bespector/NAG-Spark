@@ -216,6 +216,7 @@ public class NAGLinearRegression {
                 bw.newLine();
                 bw.write("R-Squared = " + _Rsquared + "\n");
                 bw.write("NAG IFAIL = " + _ifail + "\n");
+                bw.write("Total time (in milliseconds): " + _time + "\n");
                 bw.write("*************************************************\n");
                 bw.write("Correlations:");
                 bw.newLine();

@@ -17,8 +17,7 @@ public class LogisticRegression {
 //	      String[] tok = parts[1].split(" ");
 	      double[] x = new double[parts.length];
               double label = Integer.parseInt(parts[0]);
-              x[0] = 1;
-              
+              x[0] = 1.0;
 	      for (int i = 1; i < parts.length; i++) {
 	        x[i] = Double.parseDouble(parts[i]);
 
@@ -40,13 +39,10 @@ public class LogisticRegression {
          	NAGLogisticRegression lr = new NAGLogisticRegression(points);
                 try {
 	               lr.train();
-//                     lr.writeLogFile("Results.txt");
+                       lr.writeLogFile("LogisticResults.txt", points.take(10));
                 } catch (Exception e) {
                        System.out.println("Error with analysis!!");
                        e.printStackTrace();
                 }  
-                double[] datapoint = {0.49325, -1.76135, 0.936302};
-                System.out.println("Predicting point <0.49325, -1.76135, 0.936302>");      
-	        System.out.println("Prob = " + lr.predict(Vectors.dense(datapoint)));
 	}
 }
