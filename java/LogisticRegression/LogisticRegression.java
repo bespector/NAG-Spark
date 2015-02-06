@@ -39,7 +39,7 @@ public class LogisticRegression {
          	NAGLogisticRegression lr = new NAGLogisticRegression(points);
                 try {
 	               lr.train();
-                       lr.writeLogFile("LogisticResults.txt", points.take(10));
+                       lr.writeLogFile("LogisticResults.txt", points.take(25));
                 } catch (Exception e) {
                        System.out.println("Error with analysis!!");
                        e.printStackTrace();

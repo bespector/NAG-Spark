@@ -120,9 +120,9 @@ public class NAGLogisticRegression {
                         System.exit(1);                
                 }
                 double[] data = a_vector.toArray();
-                double prob = _factors[0];
-                for(int i=0;i<_factors.length-1;i++)
-                        prob+=data[i]*_factors[i+1];
+                double prob = 0.0;
+                for(int i=0;i<_factors.length;i++)
+                        prob+=data[i]*_factors[i];
                 prob = 1.0/(1.0+Math.exp(-1.0*prob));
                 return prob;
         }
