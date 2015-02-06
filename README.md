@@ -1,7 +1,7 @@
 # NAG Spark
 
 These are a collection of examples for using [the NAG Library] on Apache Spark. Current NAG-Spark implemetations are in Java and include the following functionality:
- - Linear Regression (requires one pass over the data!)
+ - Linear Regression - requires one pass over the data!
  - Logistic Regression with constraints (via a NAG optimizer)
  - Simple Statistical Calculations (mean, sd, skewness, kurtosis, min, max)
 
@@ -15,11 +15,12 @@ Coming Soon
 ### Why use a commercial library on Spark?
  - Performance
    - Exact answers for Linear Regression
-   - Robust optimizers for ML problems (fewer iterations over data)
+   - Robust optimizers for Maximum Likelihood problems (fewer iterations over data)
  - Quality
-   - Underneath NAG Spark sits an extensively tested compiled library 
- - Support
+   - Underneath NAG Spark sits an extensively tested and compiled library 
  - Documentation
+ - Support
+
 
 ### The NAG Library
 Produced by experts for use in a variety of applications, the NAG Library is the largest commercially available collection of numerical and statistical algorithms in the world. With over 1,600 tried and tested routines that are both flexible and portable it remains at the core of thousands of programs and applications spanning the globe.
