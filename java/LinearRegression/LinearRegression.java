@@ -34,12 +34,14 @@ public class LinearRegression {
                	JavaRDD<LabeledPoint> points = fileContent.map(new ParsePoint()).cache();
         	NAGLinearRegression lr = new NAGLinearRegression();
                 try {
-                        lr.RunRegression(points);
+                        lr.train(points);
                         lr.writeLogFile("LogisticResults.txt");
                 } catch (Exception e) {
                       System.out.println("Error with analysis!!");
                       e.printStackTrace();
                 }
-                        
+                double[] datapoint = {28.0,4.0,8.5,0};
+                System.out.println("Predicting point <28.0,4.0,8.5,0>");
+                System.out.println("Salary ~ " +lr.predict(Vectors.dense(datapoint)));                       
 	}
 }

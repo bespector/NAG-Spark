@@ -13,6 +13,7 @@ import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.function.Function2;
 import org.apache.spark.api.java.function.FlatMapFunction;
 import org.apache.spark.mllib.regression.LabeledPoint;
+import org.apache.spark.mllib.linalg.Vector;
 
 import com.nag.exceptions.NAGBadIntegerException;
 import com.nag.routines.Routine;
@@ -28,10 +29,11 @@ public class NAGLinearRegression {
         private int _dataSize;
         private int _chunkSize = 10000;
         private double[] _con ;
-        private double[] _coef;
+        private double[] _coef = null;
         private double _Rsquared ;
         private int _ifail;
         private double [] _correlations;
+        private double _time;
 
 	static class NAGData implements Serializable {
 	    NAGData(int length, double[] means, double[] ssq) {
@@ -94,24 +96,26 @@ public class NAGLinearRegression {
 	    }
         }
 
-        public void RunRegression(JavaRDD<LabeledPoint> mypoints)
+        public void train(JavaRDD<LabeledPoint> datapoints)
                                         throws NAGBadIntegerException {
 
                 Routine.init();                
-                _numvars = mypoints.take(1).get(0).features().size() + 1;               
+                _numvars = datapoints.take(1).get(0).features().size() + 1;               
 
                 long startTime = System.currentTimeMillis();
 
-                _dataSize = (int) mypoints.count();                
+                _dataSize = (int) datapoints.count();                
                 int numPartitions = (int) (_dataSize / _chunkSize) + 1;
 
-                JavaRDD<NAGData> dataset = mypoints.repartition(numPartitions).mapPartitions(
-                                                                                new ParseSet());
                 double[] emptyMeans = new double[_numvars];
                 double[] emptySSQ = new double[(_numvars*_numvars+_numvars)/2];
                 NAGData NAGEmpty = new NAGData(0, emptyMeans, emptySSQ);
-                NAGData finalpt = dataset.aggregate(NAGEmpty, new combineNAGData(),
-                                                                new combineNAGData());
+
+                NAGData finalpt = datapoints.repartition(numPartitions)
+                                                .mapPartitions(new ParseSet())
+                                                .aggregate(NAGEmpty, new combineNAGData(),
+                                                 new combineNAGData());
+                
                 int ifail = 1;
                 int K1 = _numvars;
                 int K = K1 - 1;
@@ -144,10 +148,23 @@ public class NAGLinearRegression {
                                 K1, result, coef, K, con, rinv, K, c, K, wkz, K, ifail);
 
                 long endTime = System.currentTimeMillis();
+                _time = endTime - startTime;
                 _con = con;
                 _Rsquared = result[11];
                 _coef = coef;
                 _ifail = g02cg.getIFAIL();
+        }
+        
+        public double predict(Vector a_vector) {
+                if(_coef == null) {
+                        System.out.println("Factors are null, run regression first.");
+                        System.exit(1);
+                }
+                double[] data = a_vector.toArray();
+                double temp = _con[0];
+                for(int i=0;i<_numvars-1;i++)
+                        temp+=data[i]*_coef[i];
+                return temp;
         }
 
         /* Method to convert packed 1-d array into unpack 2-d array */

@@ -5,6 +5,7 @@ import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.api.java.function.Function;
 import org.apache.spark.mllib.linalg.Vectors;
+import org.apache.spark.mllib.linalg.Vector;
 import org.apache.spark.mllib.regression.LabeledPoint;
 
 public class LogisticRegression {
@@ -43,7 +44,9 @@ public class LogisticRegression {
                 } catch (Exception e) {
                        System.out.println("Error with analysis!!");
                        e.printStackTrace();
-                }        
-		
+                }  
+                double[] datapoint = {0.49325, -1.76135, 0.936302};
+                System.out.println("Predicting point <0.49325, -1.76135, 0.936302>");      
+	        System.out.println("Prob = " + lr.predict(Vectors.dense(datapoint)));
 	}
 }

@@ -1,6 +1,6 @@
 # NAGLogisticRegression on Spark
 
-This examples computes a logistic regression on sampledata.
+This examples computes a logistic regression on sample data.
 
 NAG functions used:
 - [E04KY] - Minimum, function of several variable, quasi-Newton algorithm, simple bounds, using first derivatives
