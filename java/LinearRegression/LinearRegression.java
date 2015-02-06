@@ -1,10 +1,12 @@
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.api.java.function.Function;
 import org.apache.spark.mllib.linalg.Vectors;
+import org.apache.spark.mllib.linalg.Vector;
 import org.apache.spark.mllib.regression.LabeledPoint;
 
 public class LinearRegression {
@@ -31,17 +33,24 @@ public class LinearRegression {
                 JavaSparkContext ctx = new JavaSparkContext(conf);
 
         	JavaRDD<String> fileContent = ctx.textFile(args[0]);	
-               	JavaRDD<LabeledPoint> points = fileContent.map(new ParsePoint()).cache();
+               	JavaRDD<LabeledPoint> datapoints = fileContent.map(new ParsePoint()).cache();
         	NAGLinearRegression lr = new NAGLinearRegression();
                 try {
-                        lr.train(points);
+                        lr.train(datapoints);
                         lr.writeLogFile("LogisticResults.txt");
                 } catch (Exception e) {
                       System.out.println("Error with analysis!!");
                       e.printStackTrace();
                 }
-                double[] datapoint = {28.0,4.0,8.5,0};
-                System.out.println("Predicting point <28.0,4.0,8.5,0>");
-                System.out.println("Salary ~ " +lr.predict(Vectors.dense(datapoint)));                       
+                int N = 10;
+                List<LabeledPoint> test = datapoints.take(N);               
+                LabeledPoint point;
+                System.out.println(String.format("Predicting %d points",N));
+                for(int i=0;i<N;i++) {
+                        point = test.get(i);
+                        System.out.println(String.format(
+                        "Prediction: %.1f Actual: %.1f", lr.predict(point.features()),
+                                                                point.label()));                       
+                }
 	}
 }
