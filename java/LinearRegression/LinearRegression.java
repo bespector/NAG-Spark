@@ -1,12 +1,10 @@
 import java.io.IOException;
-import java.util.List;
 
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.api.java.function.Function;
 import org.apache.spark.mllib.linalg.Vectors;
-import org.apache.spark.mllib.linalg.Vector;
 import org.apache.spark.mllib.regression.LabeledPoint;
 
 public class LinearRegression {
@@ -37,20 +35,13 @@ public class LinearRegression {
         	NAGLinearRegression lr = new NAGLinearRegression();
                 try {
                         lr.train(datapoints);
-                        lr.writeLogFile("LogisticResults.txt");
+
+                        /* Let the linear model predict 10 points and compare with actual */
+                        lr.writeLogFile("LogisticResults.txt", datapoints
+                                                        .takeSample(false, 10));
                 } catch (Exception e) {
                       System.out.println("Error with analysis!!");
                       e.printStackTrace();
-                }
-                int N = 10;
-                List<LabeledPoint> test = datapoints.take(N);               
-                LabeledPoint point;
-                System.out.println(String.format("Predicting %d points",N));
-                for(int i=0;i<N;i++) {
-                        point = test.get(i);
-                        System.out.println(String.format(
-                        "Prediction: %.1f Actual: %.1f", lr.predict(point.features()),
-                                                                point.label()));                       
                 }
 	}
 }

@@ -168,7 +168,8 @@ public class NAGLinearRegression {
         }
 
         /* Method to convert packed 1-d array into unpack 2-d array */
-        private double[] convertMatrix(double[] input, int n) throws NAGBadIntegerException {
+        private double[] convertMatrix(double[] input, int n) 
+                                                throws NAGBadIntegerException {
                 String JOB = "U";
                 String UPLO = "U";
                 String DIAG = "N";
@@ -185,7 +186,8 @@ public class NAGLinearRegression {
                 return B;
         }
 
-        public void writeLogFile(String fileName) throws Exception {
+        public void writeLogFile(String fileName, List<LabeledPoint> datapoints) 
+                                                                throws Exception {
                 File file;
                 FileWriter fw;
                 BufferedWriter bw;
@@ -219,9 +221,21 @@ public class NAGLinearRegression {
                 bw.newLine();
                 for(int i=0;i<_numvars;i++){
                         for(int j=0;j<_numvars;j++) 
-                                bw.write(String.format("%.3f\t", _correlations[j+i*_numvars]));    
+                                bw.write(String.format("%.3f\t", 
+                                                _correlations[j+i*_numvars]));    
                         bw.newLine();
                 }
+
+                bw.write("*************************************************\n");
+                LabeledPoint point;
+                bw.write(String.format("Predicting %d points\n",datapoints.size()));
+                for(int i=0;i<datapoints.size();i++) {
+                        point = datapoints.get(i);
+                        bw.write(String.format(
+                        "Prediction: %.1f Actual: %.1f\n", predict(point.features()),
+                                                                point.label()));                       
+                }
+
                 bw.close();        
         } 
 }

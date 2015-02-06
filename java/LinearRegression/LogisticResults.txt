@@ -18,3 +18,15 @@ Correlations:
 -0.008	-0.004	1.000	0.000	0.000	
 0.033	0.022	-0.025	1.000	0.000	
 0.749	0.460	0.067	0.358	1.000	
+*************************************************
+Predicting 10 points
+Prediction: 40897.0 Actual: 43208.4
+Prediction: 76205.6 Actual: 74399.7
+Prediction: 36099.3 Actual: 39734.9
+Prediction: 61651.8 Actual: 61700.1
+Prediction: 95892.7 Actual: 95691.1
+Prediction: 52800.4 Actual: 56067.1
+Prediction: 75952.3 Actual: 74665.2
+Prediction: 60383.2 Actual: 61897.2
+Prediction: 50555.2 Actual: 51976.7
+Prediction: 65344.7 Actual: 68739.6
