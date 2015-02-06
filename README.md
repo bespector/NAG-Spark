@@ -12,6 +12,15 @@ Coming Soon
 - Quantile Analysis
 - ???
 
+### Why use a commercial library on Spark?
+ - Performance
+   - Exact answers for Linear Regression
+   - Robust optimizers for ML problems (fewer iterations over data)
+ - Quality
+   - Underneath NAG Spark sits an extensively tested compiled library 
+ - Support
+ - Documentation
+
 ### The NAG Library
 Produced by experts for use in a variety of applications, the NAG Library is the largest commercially available collection of numerical and statistical algorithms in the world. With over 1,600 tried and tested routines that are both flexible and portable it remains at the core of thousands of programs and applications spanning the globe.
 
@@ -22,12 +31,6 @@ NAG Functionality includes
  - Ordinary and Partial Differential Equations
  - Curve and Surface Fitting
  - Random Number Generation
-
-### Why use a commercial library on Spark?
-- Performance
-- Support
-- Quality
-- Documentation
 
 ### Obtaining a NAG License
 Free 60-day NAG licenses are available. To obtain a license, email support@nag.co.uk with the following information.
