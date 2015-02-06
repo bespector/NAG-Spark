@@ -9,7 +9,7 @@ X[2]		|0.401
 X[3]		|0.799
 
 NAG IFAIL = 0
-Total time (in milliseconds): 9852
+Total time (in milliseconds): 9878
 *************************************************
 Predicting 10 points
 Odds: 0.287 Actual: 0.000

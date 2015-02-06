@@ -70,13 +70,11 @@ public class NAGLinearRegression {
                         mypoints.add(iter.next());                      
                }
                 int length = mypoints.size();
-                int numvars = mypoints.get(0).features().toArray().length + 1;
+                int numvars = mypoints.get(0).features().size() + 1;
                 double[] x = new double[length*numvars];
-                double[] features;	      
                 for(int i=0;i<length;i++) {
-                        features = mypoints.get(i).features().toArray();
                         for(int j=0;j<numvars-1;j++) {
-                                x[(j) * length + i] = features[j];
+                                x[(j) * length + i] = mypoints.get(i).features().apply(j);
                         }
                         x[(numvars-1) * length + i] = mypoints.get(i).label();
                 }

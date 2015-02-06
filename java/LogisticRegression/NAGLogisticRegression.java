@@ -48,7 +48,6 @@ public class NAGLogisticRegression {
                 @Override
                 public double[] call(LabeledPoint p) {
                         double[] gradient = new double[gX.length + 1];
-//                        double[] data = p.features().toArray();
 
                         xb=0.0;
                       	for (i = 0; i < gX.length; i++)
