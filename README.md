@@ -14,10 +14,10 @@ Coming Soon
 
 ### Why use a commercial library on Spark?
  - Performance
+   - Underneath NAG Spark sits an extensively tested and compiled library 
    - Exact answers for Linear Regression
    - Robust optimizers for Maximum Likelihood problems (fewer iterations over data)
  - Quality
-   - Underneath NAG Spark sits an extensively tested and compiled library 
  - Documentation
  - Support
 
@@ -32,6 +32,10 @@ NAG Functionality includes
  - Ordinary and Partial Differential Equations
  - Curve and Surface Fitting
  - Random Number Generation
+
+The NAG Library requires all data must be in-memory when calling NAG functions. As this contrasts with Spark's out-of-memory computing, the NAG Library must be call one of two ways:
+1. Break the problem up and call NAG functions on smaller datasets. You can either process all the data or sample from a subset. The results must then be aggregated together in a final reduce stage (see the NAGLinearRegression Example).
+2. Reformulate the problem using a different method (such as a Maximum Likelihood problem). Though this is oftentimes inefficient, this maybe the only way to solve big data problems (see NAGLogisticRegression Example).
 
 ### Obtaining a NAG License
 Free 60-day NAG licenses are available. To obtain a license, email support@nag.co.uk with the following information.
