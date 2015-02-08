@@ -17,6 +17,7 @@ import org.apache.spark.mllib.linalg.Vector;
 
 import com.nag.exceptions.NAGBadIntegerException;
 import com.nag.routines.Routine;
+import com.nag.routines.G02.G02AB;
 import com.nag.routines.G02.G02BU;
 import com.nag.routines.G02.G02BZ;
 import com.nag.routines.G02.G02CG;
@@ -136,13 +137,13 @@ public class NAGLinearRegression {
                         System.exit(1);                
                 }
 
-                double[] pearsonR;
-
-                pearsonR = convertMatrix(finalpt.ssq, K1);
+                double[] pearsonR = convertMatrix(finalpt.ssq, K1);
                 _correlations = convertMatrix(finalpt.ssq, K1);
+				
+		double[] X = nearest_corr(pearsonR, K1);
 
                 G02CG g02cg = new G02CG();                     
-                g02cg.eval(finalpt.length, K1, K, finalpt.means, ssq, K1, pearsonR, 
+                g02cg.eval(finalpt.length, K1, K, finalpt.means, ssq, K1, X, 
                                 K1, result, coef, K, con, rinv, K, c, K, wkz, K, ifail);
 
                 long endTime = System.currentTimeMillis();
@@ -152,6 +153,26 @@ public class NAGLinearRegression {
                 _coef = coef;
                 _ifail = g02cg.getIFAIL();
         }
+
+	public double[] nearest_corr(double[] input, int size) 
+					throws NAGBadIntegerException {
+		int LDG = size, N = size, MAXITS = -1, MAXIT = -1,
+			ITER = 0, FEVAL = 0, IFAIL = 1, LDX = size;
+		String OPT = "A";
+		double ALPHA = .0001, ERRTOL = .0001, NRMGRD = 0.0;
+		double[] W = new double[1];
+		double[] X = new double[input.length];
+		G02AB g02ab = new G02AB(input, LDG, N, OPT, ALPHA, W, ERRTOL, MAXITS,
+					MAXIT, X, LDX, ITER, FEVAL, NRMGRD, IFAIL);
+
+		g02ab.eval();
+                if(g02ab.getIFAIL() > 0) {
+                        System.out.println("Error with NAG (g02ab) IFAIL = " + 
+							g02ab.getIFAIL());       
+                        System.exit(1);                
+                }
+		return X;
+	}
         
         public double predict(Vector a_vector) {
                 if(_coef == null) {
@@ -181,6 +202,13 @@ public class NAGLinearRegression {
                         System.out.println("Error with f01za!!!");
                         System.exit(1);
                 }                        
+		int l=0;
+		for(int i=0;i<n;i++){
+			for(int j=0;j<n;j++) {
+				B[l]=B[j*n+i];
+				l++;
+			}
+		}
                 return B;
         }
 
@@ -199,6 +227,7 @@ public class NAGLinearRegression {
                 bw = new BufferedWriter(fw);
                 bw.write("NAG Spark Multi-Linear Regression\n");
                 bw.write("*************************************************\n");
+		bw.write("Number Variables: " + _numvars + "\n");
                 bw.write("Total number of points: " + _dataSize + "\n");
                 bw.write("Var\t\t|Coef\t\tSE\t\tt-value\n");
                 bw.write("------------------------------------------------------\n");
