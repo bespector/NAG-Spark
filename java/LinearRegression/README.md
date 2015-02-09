@@ -10,8 +10,9 @@ NAG functions used:
 - [F01ZA]  - Utility routine for matrix conversion
 
 ### The Data
-
-The data is designed to predict the salary of an employee based on a number of factors (age [18>], years experience [0>], rating [0-10], industry [0, 1, 2]).
+We tested the functionality on two datasets:
+1. The MLLIB Data
+2. Data designed to predict the salary of an employee based on a number of factors (age [18>], years experience [0>], rating [0-10], industry [0, 1, 2]).
 
 | Salery  | Age  | Experience  | Rating  | Industry  |
 |---|---|---|---|---|
@@ -23,25 +24,19 @@ The data is designed to predict the salary of an employee based on a number of f
 ### Results
 Prediction for 10 points:
 
-Prediction: 72849.1 Actual: 70440.4
-
-Prediction: 60568.0 Actual: 61580.5
-
-Prediction: 66245.7 Actual: 67479.8
-
-Prediction: 66640.6 Actual: 67588.3
-
-Prediction: 67752.4 Actual: 69241.9
-
-Prediction: 50944.3 Actual: 51197.7
-
-Prediction: 62004.6 Actual: 62394.0
-
-Prediction: 81347.8 Actual: 81243.0
-
-Prediction: 70182.8 Actual: 71430.6
-
-Prediction: 73303.2 Actual: 70555.6
+#Spark/NAG Linear Regression Results
+|Actual Value	|	NAG Value|	MLLIB Value|
+|---|---|---|
+|2.553		|	2.623	|	-0.224	|
+|-0.163		|	0.449	|	-1.135	|
+|2.973		|	3.027	|	0.111	|
+|3.013		|	3.195	|	1.055	|
+|0.372		|	1.700	|	-0.425	|
+|3.588		|	2.624	|	-0.537	|
+|-0.163		|	0.557	|	-1.635	|
+|1.848		|	2.250	|	1.044	|
+|2.963		|	3.127	|	0.310	|
+|4.684		|	4.450	|	0.570	|
 
 
 [G02BU]: http://www.nag.com/numeric/fl/nagdoc_fl24/html/G02/g02buf.html
