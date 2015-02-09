@@ -16,7 +16,7 @@ Coming Soon
 
 ### Why use a commercial library on Spark?
  - Performance
-   - Faster and more accurate solutions
+   - Faster and more accurate solutions (over 100x performace increase from Mllib for linear regression)
    - Robust optimizers for fewer iterations over data
  - Quality
    - Underneath NAG Spark sits a compiled library 
