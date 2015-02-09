@@ -3,14 +3,15 @@
 These are a collection of examples for using [the NAG Library] on Apache Spark. Current NAG-Spark implemetations are in Java and include the following functionality:
  - Simple Statistical Calculations (mean, sd, skewness, kurtosis, min, max)
  - Pearson Correlation 
- - Linear Regression - exact answers with one pass over the data!
+ - Principal Component Analysis
+ - Linear Regression - exact coefficients with one pass over the data!
  - Logistic Regression with constraints (via a NAG optimizer)
 
 Coming Soon
  - Linear Regression with constraints (via a NAG optimizer)
- - Principal Component Analysis
  - Sampled K-means
  - Quantile Analysis
+ - Factor Analysis
  - ???
 
 ### Why use a commercial library on Spark?
@@ -19,15 +20,8 @@ Coming Soon
    - Robust optimizers for fewer iterations over data
  - Quality
    - Underneath NAG Spark sits a compiled library 
-   - Over 1600 tried and tested routines
  - Extensive Documentation and Support
-
-### Using the NAG Library on Spark
-
-The NAG Library requires all data must be in-memory when calling NAG functions. As this contrasts with Spark's out-of-memory computing, the NAG Library must be called one of two ways:
-
-1. Break the problem up and call NAG functions on smaller datasets. You can either process all the data or a subset and then aggregate the results together in a final reduce stage (see the NAGLinearRegression Example).
-2. Reformulate the problem using a different method such as a Maximum Likelihood problem. Though this is oftentimes inefficient, this can be the only way to analize big data (see the NAGLogisticRegression Example).
+   - Over 1600 tried and tested routines
 
 ### The NAG Library
 Produced by experts for use in a variety of applications, the NAG Library is the largest commercially available collection of numerical and statistical algorithms in the world. With over 1,600 tried and tested routines that are both flexible and portable it remains at the core of thousands of programs and applications spanning the globe.
@@ -39,6 +33,13 @@ NAG Functionality includes
  - Ordinary and Partial Differential Equations
  - Curve and Surface Fitting
  - Random Number Generation
+
+### Using the NAG Library on Spark
+
+The NAG Library requires all data must be in-memory when calling NAG functions. As this contrasts with Spark's out-of-memory computing, the NAG Library must be called one of two ways:
+
+1. Break the problem up and call NAG functions on smaller datasets. You can either process all the data or a subset and then aggregate the results together in a final reduce stage (see the NAG Correlation Example).
+2. Reformulate the problem using a different method such as a Maximum Likelihood problem. Though this is oftentimes inefficient, this can be the only way to analize big data (see the NAGLogisticRegression Example).
 
 ### Obtaining a NAG License
 Free 60-day NAG licenses are available. To obtain a license, email support@nag.co.uk with the following information.
