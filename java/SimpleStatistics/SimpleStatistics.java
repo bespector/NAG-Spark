@@ -18,10 +18,10 @@ public class SimpleStatistics {
                                                 5.5, 6.0, 7.5, 8.0, 9.5, 10.0);
                                                 
                 JavaDoubleRDD doubleRDD = ctx.parallelizeDoubles(data); 
-                NAGSimpleStatistics ss = new NAGSimpleStatistics();
+                NAGSimpleStatistics ss = null;
 
                 try {
-                        ss.NAGSimpleStatistics(doubleRDD, 3);
+                        ss = new NAGSimpleStatistics(doubleRDD, 3);
                 } catch (Exception ex) {
                         System.out.println("Something went wrong!!");
                 }

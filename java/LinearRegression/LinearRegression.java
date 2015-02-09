@@ -37,7 +37,7 @@ public class LinearRegression {
                         lr.train(datapoints);
 
                         /* Let the linear model predict 10 points and compare with actual */
-                        lr.writeLogFile("LinearResults.txt", datapoints
+                        lr.writeLogFile("results.txt", datapoints
                                                         .take(10));
                 } catch (Exception e) {
                       System.out.println("Error with analysis!!");

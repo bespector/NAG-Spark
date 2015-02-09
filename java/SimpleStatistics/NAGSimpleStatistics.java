@@ -95,12 +95,12 @@ public class NAGSimpleStatistics {
 	    }
         }
 
-        public void NAGSimpleStatistics(JavaDoubleRDD doublerdd, 
+        public NAGSimpleStatistics(JavaDoubleRDD doublerdd, 
                                         int numPartitions) throws Exception {
 
                 Routine.init();
 
-                double[] dataset = doublerdd.repartition(numPartitions)
+                double[] dataset = doublerdd.coalesce(numPartitions)
                                         .mapPartitions(new ParseSet())
                                         .reduce(new CombineNAGData());
                 
