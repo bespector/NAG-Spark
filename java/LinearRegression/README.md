@@ -11,6 +11,7 @@ NAG functions used:
 
 ### The Data
 We tested the functionality on two datasets:
+
 1. The MLLIB Data
 2. Data designed to predict the salary of an employee based on a number of factors (age [18>], years experience [0>], rating [0-10], industry [0, 1, 2]).
 
@@ -21,10 +22,9 @@ We tested the functionality on two datasets:
 |54803.7|25.8|3.8 |5.91|1|
 |62919.5|32.7|8.0 |2.18|2|
 
-### Results
+## Results
 Prediction for 10 points:
-
-#Spark/NAG Linear Regression Results
+## Dataset 1
 |Actual Value	|	NAG Value|	MLLIB Value|
 |---|---|---|
 |2.553		|	2.623	|	-0.224	|
@@ -37,7 +37,19 @@ Prediction for 10 points:
 |1.848		|	2.250	|	1.044	|
 |2.963		|	3.127	|	0.310	|
 |4.684		|	4.450	|	0.570	|
-
+## Dataset 2
+|Actual Value	|	NAG Value|	MLLIB Value|
+|---|---|---|
+|66251.300|			66418.811|		NaN|	
+|61928.800|			61255.407|		NaN|	
+|71142.700|			72274.045|		NaN|	
+|49972.500|			47876.686|		NaN|	
+|61774.400|			62186.918|		NaN|	
+|70014.800|			70857.267|		NaN|	
+|53677.300|			52521.771|		NaN|	
+|46427.400|			43881.636|		NaN|	
+|51338.800|			50774.217|		NaN|	
+|67300.500|			66273.946|		NaN|	
 
 [G02BU]: http://www.nag.com/numeric/fl/nagdoc_fl24/html/G02/g02buf.html
 [G02BZ]: http://www.nag.com/numeric/fl/nagdoc_fl24/html/G02/g02bzf.html

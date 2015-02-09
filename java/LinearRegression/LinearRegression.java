@@ -71,7 +71,7 @@ public class LinearRegression {
 						test.get(i).label(),
 						nag.predict(test.get(i).features()),
 						model.predict(test.get(i).features())>-100 ? 
-						model.predict(test.get(i).features()) : "-100"));
+						model.predict(test.get(i).features()) : -100));
 			bw.close();
       	        } catch (Exception e) {
         	              System.out.println("Error with analysis!!");

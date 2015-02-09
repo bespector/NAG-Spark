@@ -17,7 +17,7 @@ LinearRegression.class: LinearRegression.java NAGLinearRegression.java
 	$(JC) $(JFLAGS) -cp $(CLASSPATH) NAGLinearRegression.java LinearRegression.java "../Correlation/NAGCorrelation.java"
         
 run:
-	$(JR) -cp $(CLASSPATH) LinearRegression "../../data/spark_data" #"../../data/linearRegressionData"
+	$(JR) -cp $(CLASSPATH) LinearRegression "../../data/linearRegressionData" #"../../data/spark_data" #
 
 clean:
 	$(RM) *.class
