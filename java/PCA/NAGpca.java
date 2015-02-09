@@ -1,14 +1,3 @@
-import java.io.Serializable;
-import java.io.IOException;
-import java.util.List;
-import java.util.Arrays;
-import java.util.ArrayList;
-import java.util.Iterator;
-
-import java.io.FileWriter;
-import java.io.File;
-import java.io.BufferedWriter;
-
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.mllib.regression.LabeledPoint;
 import org.apache.spark.mllib.linalg.Vector;
