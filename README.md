@@ -2,15 +2,16 @@
 
 These are a collection of examples for using [the NAG Library] on Apache Spark. Current NAG-Spark implemetations are in Java and include the following functionality:
  - Simple Statistical Calculations (mean, sd, skewness, kurtosis, min, max)
- - Linear Regression - uses one pass over the data!
+ - Pearson Correlation 
+ - Linear Regression - exact answers with one pass over the data!
  - Logistic Regression with constraints (via a NAG optimizer)
 
 Coming Soon
-- Linear Regression with constraints (via a NAG optimizer)
-- Pearson Correlation 
-- Sampled K-means
-- Quantile Analysis
-- ???
+ - Linear Regression with constraints (via a NAG optimizer)
+ - Principal Component Analysis
+ - Sampled K-means
+ - Quantile Analysis
+ - ???
 
 ### Why use a commercial library on Spark?
  - Performance

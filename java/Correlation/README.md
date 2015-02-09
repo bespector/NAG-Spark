@@ -1,0 +1,12 @@
+# NAGCorrelation on Spark
+
+This examples copmutes the Pearson Correlation Coefficient on Big Data.
+
+NAG functions used:
+- [G02BU]  - Computes weighted sum of squares matrix
+- [G02BZ]  - Combines two sums of squares matrices
+- [G02BW]  - Computes a correlation matrix from a sum of squares matrix
+
+[G02BU]: http://www.nag.com/numeric/fl/nagdoc_fl24/html/G02/g02buf.html
+[G02BZ]: http://www.nag.com/numeric/fl/nagdoc_fl24/html/G02/g02bzf.html
+[G02BW]: http://www.nag.com/numeric/fl/nagdoc_fl24/html/G02/g02bwf.html
