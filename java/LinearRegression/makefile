@@ -6,6 +6,8 @@ NAGDIR = /opt/NAG/fll6i24dcl
 NAGJAVA = /home/brian/java/NAGJava
 SPARKDIR = /home/brian/Downloads/spark-1.1.1
 
+SPARKMASTER = "local"
+
 SPARKCP = $(SPARKDIR)/assembly/target/scala-2.10/spark-assembly-1.1.1-hadoop1.0.4.jar
 
 CLASSPATH = .:$(NAGJAVA)/jar/NAGJava.jar:$(SPARKCP):../Correlation
@@ -17,10 +19,10 @@ LinearRegression.class: LinearRegression.java NAGLinearRegression.java
 	$(JC) $(JFLAGS) -cp $(CLASSPATH) NAGLinearRegression.java LinearRegression.java "../Correlation/NAGCorrelation.java"
         
 run_nag_data:
-	$(JR) -cp $(CLASSPATH) LinearRegression "../../data/linearRegressionData" 
+	$(JR) -Dspark.master=$(SPARKMASTER) -cp $(CLASSPATH) LinearRegression "../../data/linearRegressionData" 
 
 run_spark_data:
-	$(JR) -cp $(CLASSPATH) LinearRegression $(SPARKDIR)/data/mllib/ridge-data
+	$(JR) -Dspark.master=$(SPARKMASTER) -cp $(CLASSPATH) LinearRegression $(SPARKDIR)/data/mllib/ridge-data
 
 clean:
 	$(RM) *.class

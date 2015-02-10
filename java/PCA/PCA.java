@@ -26,8 +26,8 @@ public class PCA {
 	public static void main(String[] args) {
                            
                 SparkConf conf = new SparkConf()
-                        .setAppName("NAG PCA Example")
-                        .setMaster("local");
+                        .setAppName("NAG PCA Example");
+
                 JavaSparkContext ctx = new JavaSparkContext(conf);
 
         	JavaRDD<String> fileContent = ctx.textFile(args[0]);	
@@ -43,7 +43,7 @@ public class PCA {
 		double[] ev = PCA.getEIGENVALUES();
 
 		System.out.println("************************");
-		System.out.println("Eigevalue\tValue");
+		System.out.println("Number\tEigenvalue");
 
 		for(int i=0;i<PCA.getNumVars();i++)
 			System.out.println(i+"\t\t"+String.format("%.3f",ev[i]));

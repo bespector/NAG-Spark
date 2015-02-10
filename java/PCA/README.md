@@ -1,6 +1,6 @@
 # NAGLinearRegression on Spark
 
-This examples computes the Principal Component Analysis on a *JavaRDD<LabeledPoint>* or *JavaRDD<Vector>*.
+This examples computes the Principal Component Analysis on a JavaRDD of *LabeledPoints* or *Vector*.
 
 NAG functions used:
 - [G02BU]  - Computes weighted sum of squares matrix

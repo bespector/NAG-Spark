@@ -26,8 +26,8 @@ public class Correlation {
 	public static void main(String[] args) {
                            
                 SparkConf conf = new SparkConf()
-                        .setAppName("NAG Correlation Example")
-                        .setMaster("local");
+                        .setAppName("NAG Correlation Example");
+
                 JavaSparkContext ctx = new JavaSparkContext(conf);
 
         	JavaRDD<String> fileContent = ctx.textFile(args[0]);	

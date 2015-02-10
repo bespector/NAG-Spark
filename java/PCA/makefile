@@ -6,6 +6,8 @@ NAGDIR = /opt/NAG/fll6i24dcl
 NAGJAVA = /home/brian/java/NAGJava
 SPARKDIR = /home/brian/Downloads/spark-1.1.1
 
+SPARKMASTER = "local"
+
 SPARKCP = $(SPARKDIR)/assembly/target/scala-2.10/spark-assembly-1.1.1-hadoop1.0.4.jar
 
 CLASSPATH = .:$(NAGJAVA)/jar/NAGJava.jar:$(SPARKCP):../Correlation
@@ -17,7 +19,7 @@ PCA.class: PCA.java NAG_PCA.java
 	$(JC) $(JFLAGS) -cp $(CLASSPATH) NAG_PCA.java PCA.java "../Correlation/NAGCorrelation.java"
         
 run:
-	$(JR) -cp $(CLASSPATH) PCA "../../data/linearRegressionData"
+	$(JR) -Dspark.master=$(SPARKMASTER) -cp $(CLASSPATH) PCA "../../data/linearRegressionData"
 
 clean:
 	$(RM) *.class

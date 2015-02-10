@@ -37,8 +37,8 @@ public class LinearRegression {
 	public static void main(String[] args) {
                            
                 SparkConf conf = new SparkConf()
-                        .setAppName("NAG Linear Regression Example")
-                        .setMaster("local");
+                        .setAppName("NAG Linear Regression Example");
+
                 JavaSparkContext ctx = new JavaSparkContext(conf);
 
         	JavaRDD<String> fileContent = ctx.textFile(args[0]);	

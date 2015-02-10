@@ -10,8 +10,8 @@ public class SimpleStatistics {
 
 	public static void main(String[] args) {
 
-                SparkConf conf = new SparkConf().setAppName("NAG Simple Stats")
-                                                        .setMaster("local");
+                SparkConf conf = new SparkConf().setAppName("NAG Simple Stats");
+                                             
                 JavaSparkContext ctx = new JavaSparkContext(conf);
 
                 List<Double> data = Arrays.asList(1.5, 2.0, 3.5, 4.0, 
