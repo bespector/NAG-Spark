@@ -17,8 +17,8 @@ import org.apache.spark.mllib.regression.LinearRegressionModel;
 public class LinearRegression {
 
  	static	File file;
-             static   FileWriter fw;
-               static BufferedWriter bw;
+	static   FileWriter fw;
+        static BufferedWriter bw;
        
 	  static class ParsePoint implements Function<String, LabeledPoint> {
 	    @Override
@@ -29,7 +29,7 @@ public class LinearRegression {
               double label = Double.parseDouble(parts[0]);
 	      for (int i = 0; i < tok.length; i++) {
 	        x[i] = Double.parseDouble(tok[i]);
-              }	      
+              }
 	      return new LabeledPoint(label, Vectors.dense(x));
 	    }
 	  }
@@ -70,13 +70,12 @@ public class LinearRegression {
 				bw.write(String.format("%.3f\t\t\t%.3f\t\t%.3f\t\n",
 						test.get(i).label(),
 						nag.predict(test.get(i).features()),
-						model.predict(test.get(i).features())>-100 ? 
+						model.predict(test.get(i).features())>-100000 ? 
 						model.predict(test.get(i).features()) : -100000));
 			bw.close();
       	        } catch (Exception e) {
         	              System.out.println("Error with analysis!!");
         	              e.printStackTrace();
       	        }
-
 	}
 }

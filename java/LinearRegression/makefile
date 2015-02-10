@@ -16,8 +16,11 @@ export LD_LIBRARY_PATH
 LinearRegression.class: LinearRegression.java NAGLinearRegression.java
 	$(JC) $(JFLAGS) -cp $(CLASSPATH) NAGLinearRegression.java LinearRegression.java "../Correlation/NAGCorrelation.java"
         
-run:
-	$(JR) -cp $(CLASSPATH) LinearRegression "../../data/linearRegressionData" #"../../data/spark_data" #
+run_nag_data:
+	$(JR) -cp $(CLASSPATH) LinearRegression "../../data/linearRegressionData" 
+
+run_spark_data:
+	$(JR) -cp $(CLASSPATH) LinearRegression $(SPARKDIR)/data/mllib/ridge-data
 
 clean:
 	$(RM) *.class

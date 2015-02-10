@@ -6,7 +6,7 @@ import com.nag.exceptions.NAGBadIntegerException;
 import com.nag.routines.Routine;
 import com.nag.routines.F08.F08FA;
 
-public class NAGpca extends NAGCorrelation {
+public class NAG_PCA extends NAGCorrelation {
 
 	private int _ifail;
         private double[] _eigenvalues = null;
@@ -16,8 +16,11 @@ public class NAGpca extends NAGCorrelation {
 		return _eigenvalues;
 	}
 
+	public double[] getEIGENVECTORS() {
+		return _eigenvectors;
+	}
 
-        public void pcaLabeledPoint(JavaRDD<LabeledPoint> datapoints)
+        public void PCALabeledPoint(JavaRDD<LabeledPoint> datapoints)
                                         throws NAGBadIntegerException {
 
 		LabeledPointCorrelation(datapoints);                
@@ -42,7 +45,8 @@ public class NAGpca extends NAGCorrelation {
 			System.exit(1);
 		}
         }
-        public void pcaVector(JavaRDD<Vector> datapoints)
+
+        public void PCAVector(JavaRDD<Vector> datapoints)
                                         throws NAGBadIntegerException {
 
 		VectorCorrelation(datapoints);                

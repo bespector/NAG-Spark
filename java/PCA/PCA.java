@@ -7,7 +7,7 @@ import org.apache.spark.api.java.function.Function;
 import org.apache.spark.mllib.linalg.Vectors;
 import org.apache.spark.mllib.regression.LabeledPoint;
 
-public class pca {
+public class PCA {
 
 	  static class ParsePoint implements Function<String, LabeledPoint> {
 	    @Override
@@ -33,19 +33,19 @@ public class pca {
         	JavaRDD<String> fileContent = ctx.textFile(args[0]);	
                	JavaRDD<LabeledPoint> datapoints = fileContent.map(new ParsePoint()).cache();
 
-        	NAGpca pca = new NAGpca();
+        	NAG_PCA PCA = new NAG_PCA();
                 try {
-                        pca.pcaLabeledPoint(datapoints);
+                        PCA.PCALabeledPoint(datapoints);
                 } catch (Exception e) {
                       System.out.println("Error with analysis!!");
                       e.printStackTrace();
                 }
-		double[] ev = pca.getEIGENVALUES();
+		double[] ev = PCA.getEIGENVALUES();
 
 		System.out.println("************************");
 		System.out.println("Eigevalue\tValue");
 
-		for(int i=0;i<pca.getNumVars();i++)
+		for(int i=0;i<PCA.getNumVars();i++)
 			System.out.println(i+"\t\t"+String.format("%.3f",ev[i]));
 	}
 }

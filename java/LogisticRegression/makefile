@@ -16,8 +16,11 @@ export LD_LIBRARY_PATH
 LogisticRegression.class: LogisticRegression.java NAGLogisticRegression.java
 	$(JC) $(JFLAGS) -cp $(CLASSPATH) NAGLogisticRegression.java LogisticRegression.java
        
-run:
+run_nag_data:
 	$(JR) -cp $(CLASSPATH) LogisticRegression "../../data/logRegressionData"
+
+run_spark_data:
+	$(JR) -cp $(CLASSPATH) LogisticRegression $(SPARKDIR)/data/lr-data
 
 clean:
 	$(RM) *.class

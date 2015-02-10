@@ -75,15 +75,11 @@ public class NAGLogisticRegression {
         	}
         }
         
-        public   NAGLogisticRegression(JavaRDD<LabeledPoint> points)  {
+        public void train(JavaRDD<LabeledPoint> points) throws Exception {
 
                 Routine.init();
                 _points = points;
                 _numVars = _points.take(1).get(0).features().size();
-                
-        }
-        
-        public void train() throws Exception {
                 int N = _numVars, IBOUND = 1, LIW = _numVars+2, IFAIL = 1,
                         LW = Math.max(10*_numVars + _numVars*(_numVars-1)/2,11);
                 int[] IW, IUSER;

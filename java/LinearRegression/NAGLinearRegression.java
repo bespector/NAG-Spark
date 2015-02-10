@@ -15,7 +15,7 @@ import com.nag.routines.G02.G02CG;
 public class NAGLinearRegression extends NAGCorrelation {
 
 	private int _ifail;
-        private double[] _con;
+        private double[] _con = null;
         private double[] _coef = null;
         private double _Rsquared;
 
@@ -45,38 +45,19 @@ public class NAGLinearRegression extends NAGCorrelation {
                 _ifail = g02cg.getIFAIL();
         }
 
-/*	public double[] nearest_corr(double[] input, int size) 
-					throws NAGBadIntegerException {
-		int LDG = size, N = size, MAXITS = -1, MAXIT = -1,
-			ITER = 0, FEVAL = 0, IFAIL = 1, LDX = size;
-		String OPT = "A";
-		double ALPHA = .0001, ERRTOL = .0001, NRMGRD = 0.0;
-		double[] W = new double[1];
-		double[] X = new double[input.length];
-		G02AB g02ab = new G02AB(input, LDG, N, OPT, ALPHA, W, ERRTOL, MAXITS,
-					MAXIT, X, LDX, ITER, FEVAL, NRMGRD, IFAIL);
-
-		g02ab.eval();
-                if(g02ab.getIFAIL() > 0) {
-                        System.out.println("Error with NAG (g02ab) IFAIL = " + 
-							g02ab.getIFAIL());       
-                        System.exit(1);                
-                }
-		return X;
-	}
-  */      
         public double predict(Vector a_vector) {
                 if(_coef == null) {
                         System.out.println("Factors are null, run regression first.");
                         System.exit(1);
                 }
-                double[] data = a_vector.toArray();
                 double temp = _con[0];
                 for(int i=0;i<_numVars-1;i++)
-                        temp+=data[i]*_coef[i];
+                        temp+=a_vector.apply(i)*_coef[i];
                 return temp;
         }
+}
 
+/*
         public void writeLogFile(String fileName, List<LabeledPoint> datapoints) 
                                                                 throws Exception {
                 File file;
@@ -129,4 +110,24 @@ public class NAGLinearRegression extends NAGCorrelation {
                 }
                 bw.close();        
         } 
-}
+	
+	public double[] nearest_corr(double[] input, int size) 
+					throws NAGBadIntegerException {
+		int LDG = size, N = size, MAXITS = -1, MAXIT = -1,
+			ITER = 0, FEVAL = 0, IFAIL = 1, LDX = size;
+		String OPT = "A";
+		double ALPHA = .0001, ERRTOL = .0001, NRMGRD = 0.0;
+		double[] W = new double[1];
+		double[] X = new double[input.length];
+		G02AB g02ab = new G02AB(input, LDG, N, OPT, ALPHA, W, ERRTOL, MAXITS,
+					MAXIT, X, LDX, ITER, FEVAL, NRMGRD, IFAIL);
+
+		g02ab.eval();
+                if(g02ab.getIFAIL() > 0) {
+                        System.out.println("Error with NAG (g02ab) IFAIL = " + 
+							g02ab.getIFAIL());       
+                        System.exit(1);                
+                }
+		return X;
+	}*/      
+

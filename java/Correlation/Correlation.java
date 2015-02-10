@@ -32,17 +32,19 @@ public class Correlation {
 
         	JavaRDD<String> fileContent = ctx.textFile(args[0]);	
                	JavaRDD<LabeledPoint> datapoints = fileContent.map(new ParsePoint()).cache();
-		NAGCorrelation corr= new NAGCorrelation();
+
+		NAGCorrelation CORR = new NAGCorrelation();
 
 		double[] PearsonR = null;
                 try {
-	       	 	corr.LabeledPointCorrelation(datapoints);
-			PearsonR = corr.getCorrelation();
+	       	 	CORR.LabeledPointCorrelation(datapoints);
+			PearsonR = CORR.getCorrelation();
                 } catch (Exception e) {
                       System.out.println("Error with analysis!!");
                       e.printStackTrace();
                 }
-		int n = corr.getNumVars();
+
+		int n = CORR.getNumVars();
 		for(int i=0;i<n;i++) {
 			for(int j=0;j<n;j++)
 				System.out.print(PearsonR[j+i*n]+ " ");

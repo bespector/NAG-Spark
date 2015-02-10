@@ -36,9 +36,10 @@ public class LogisticRegression {
 
          	JavaRDD<String> fileContent = ctx.textFile(args[0]);	
                	JavaRDD<LabeledPoint> points = fileContent.map(new ParsePoint()).cache();
-         	NAGLogisticRegression lr = new NAGLogisticRegression(points);
+
+         	NAGLogisticRegression lr = null;
                 try {
-	               lr.train();
+	               lr.train(points);
                        lr.writeLogFile("LogisticResults.txt", points.take(25));
                 } catch (Exception e) {
                        System.out.println("Error with analysis!!");

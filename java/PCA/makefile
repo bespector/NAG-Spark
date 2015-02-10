@@ -13,11 +13,11 @@ CLASSPATH = .:$(NAGJAVA)/jar/NAGJava.jar:$(SPARKCP):../Correlation
 LD_LIBRARY_PATH=$(NAGDIR)/rtl/:$(NAGDIR)/lib/:$(NAGJAVA)/linux_x64/
 export LD_LIBRARY_PATH
 
-pca.class: pca.java NAGpca.java
-	$(JC) $(JFLAGS) -cp $(CLASSPATH) NAGpca.java pca.java "../Correlation/NAGCorrelation.java"
+PCA.class: PCA.java NAG_PCA.java
+	$(JC) $(JFLAGS) -cp $(CLASSPATH) NAG_PCA.java PCA.java "../Correlation/NAGCorrelation.java"
         
 run:
-	$(JR) -cp $(CLASSPATH) pca "../../data/linearRegressionData"
+	$(JR) -cp $(CLASSPATH) PCA "../../data/linearRegressionData"
 
 clean:
 	$(RM) *.class
