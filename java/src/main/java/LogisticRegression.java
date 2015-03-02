@@ -34,7 +34,7 @@ public class LogisticRegression {
               
                 JavaSparkContext ctx = new JavaSparkContext(conf);
 
-         	JavaRDD<String> fileContent = ctx.textFile(args[0]);	
+         	JavaRDD<String> fileContent = ctx.textFile("/home/brian/Dropbox/github/NAGSpark/data/logRegressionData");	
                	JavaRDD<LabeledPoint> points = fileContent.map(new ParsePoint()).cache();
 
          	NAGLogisticRegression lr = null;

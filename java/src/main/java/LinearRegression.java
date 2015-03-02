@@ -35,24 +35,31 @@ public class LinearRegression {
 	  }
 
 	public static void main(String[] args) {
+
+		long nagTime = 1234L, mllibTime = 1234L;
                            
                 SparkConf conf = new SparkConf()
                         .setAppName("NAG Linear Regression Example");
 
                 JavaSparkContext ctx = new JavaSparkContext(conf);
 
-        	JavaRDD<String> fileContent = ctx.textFile(args[0]);	
+        	JavaRDD<String> fileContent = ctx.textFile("/home/brian/Dropbox/github/NAGSpark/data/linearRegressionData");	
                	JavaRDD<LabeledPoint> datapoints = fileContent.map(new ParsePoint()).cache();
         	NAGLinearRegression nag = new NAGLinearRegression();
                 try {
+			long startTime = System.currentTimeMillis();
                         nag.train(datapoints);
+			nagTime = System.currentTimeMillis() - startTime;
+			
                 } catch (Exception e) {
                       System.out.println("Error with analysis!!");
                       e.printStackTrace();
                 }
+
+		long startTime = System.currentTimeMillis();
 		final LinearRegressionModel model = LinearRegressionWithSGD
 						.train(JavaRDD.toRDD(datapoints),100);
-
+		mllibTime = System.currentTimeMillis() - startTime;
 		try {
 	                file = new File("results.txt");
         	        if(!file.exists()){
@@ -65,6 +72,8 @@ public class LinearRegression {
 			List<LabeledPoint> test = datapoints.takeSample(false,10);
 
 			bw.write("Spark/NAG Linear Regression Results\n");
+			bw.write("Time taken by NAG: " + nagTime + "\n");
+			bw.write("Time taken by mllib: " + mllibTime + "\n");
 			bw.write("Actual Value\t\tNAG Value\tMLLIB Value\n");
 			for(int i=0;i<10;i++) 
 				bw.write(String.format("%.3f\t\t\t%.3f\t\t%.3f\t\n",

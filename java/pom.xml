@@ -1,0 +1,34 @@
+<project>
+  <properties>
+	<maven.compiler.source>1.7</maven.compiler.source>
+	<maven.compiler.target>1.7</maven.compiler.target>
+  </properties>
+  <groupId>edu.berkeley</groupId>
+  <artifactId>simple-project</artifactId>
+  <modelVersion>4.0.0</modelVersion>
+  <name>Simple Project</name>
+  <packaging>jar</packaging>
+  <version>1.0</version>
+  <dependencies>
+    <dependency> <!-- Spark dependency -->
+      <groupId>org.apache.spark</groupId>
+      <artifactId>spark-core_2.10</artifactId>
+      <version>1.2.1</version>
+    </dependency>
+   <dependency> 
+      <groupId>nag</groupId>
+      <artifactId>com.nag.routines</artifactId>
+      <version>24.0</version>
+      <scope>system</scope>
+    <systemPath>/home/brian/java/NAGJava/jar/NAGJava.jar</systemPath>
+    </dependency>
+   <dependency> 
+      <groupId>spark</groupId>
+      <artifactId>com.spark</artifactId>
+      <version>1.2.1</version>
+      <scope>system</scope>
+    <systemPath>/home/brian/Downloads/spark-1.2.1/assembly/target/scala-2.10/spark-assembly-1.2.1-hadoop1.0.4.jar</systemPath>
+    </dependency>
+</dependencies>
+</project>
+

@@ -7,9 +7,9 @@ import org.apache.spark.api.java.function.Function;
 import org.apache.spark.mllib.linalg.Vectors;
 import org.apache.spark.mllib.regression.LabeledPoint;
 
-public class PCA {
+public class Correlation {
 
-	  static class ParsePoint implements Function<String, LabeledPoint> {
+	static class ParsePoint implements Function<String, LabeledPoint> {
 	    @Override
 	    public LabeledPoint call(String line) {
               String[] parts = line.split(",");
@@ -21,31 +21,34 @@ public class PCA {
               }	      
 	      return new LabeledPoint(label, Vectors.dense(x));
 	    }
-	  }
+	}
 
 	public static void main(String[] args) {
                            
                 SparkConf conf = new SparkConf()
-                        .setAppName("NAG PCA Example");
+                        .setAppName("NAG Correlation Example");
 
                 JavaSparkContext ctx = new JavaSparkContext(conf);
 
-        	JavaRDD<String> fileContent = ctx.textFile(args[0]);	
+        	JavaRDD<String> fileContent = ctx.textFile("/home/brian/Dropbox/github/NAGSpark/data/linearRegressionData");	
                	JavaRDD<LabeledPoint> datapoints = fileContent.map(new ParsePoint()).cache();
 
-        	NAG_PCA PCA = new NAG_PCA();
+		NAGCorrelation CORR = new NAGCorrelation();
+
+		double[] PearsonR = null;
                 try {
-                        PCA.PCALabeledPoint(datapoints);
+	       	 	CORR.LabeledPointCorrelation(datapoints);
+			PearsonR = CORR.getCorrelation();
                 } catch (Exception e) {
                       System.out.println("Error with analysis!!");
                       e.printStackTrace();
                 }
-		double[] ev = PCA.getEIGENVALUES();
 
-		System.out.println("************************");
-		System.out.println("Number\tEigenvalue");
-
-		for(int i=0;i<PCA.getNumVars();i++)
-			System.out.println(i+"\t\t"+String.format("%.3f",ev[i]));
+		int n = CORR.getNumVars();
+		for(int i=0;i<n;i++) {
+			for(int j=0;j<n;j++)
+				System.out.print(PearsonR[j+i*n]+ " ");
+			System.out.print("\n");		
+		}
 	}
 }
