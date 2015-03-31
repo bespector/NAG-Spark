@@ -4,7 +4,7 @@ JR = java
 
 NAGDIR = /opt/NAG/fll6i24dcl
 
-NAGJAVA = /home/julie/Documents/NAG/Library/NAGJava
+NAGJAVA = /home/brian/java/NAGJava
 
 CLASSPATH = .:$(NAGJAVA)/jar/NAGJava.jar
 

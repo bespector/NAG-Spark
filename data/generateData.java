@@ -15,11 +15,20 @@ public class generateData {
     static String folder;
     static int numRecords;
     static int numFiles;
-    static double[] factors = {1000, 300, 500, 0, 6000, 15000};
     int[] STATE;
     int IFAIL;
     FileWriter fw;
     BufferedWriter bw;
+
+
+    public static void main(String[] args) {
+        try {
+            generateData generator = new generateData(args);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("something went wrong");
+        }
+    }
 
     public generateData(String[] args) throws Exception {
 
@@ -114,6 +123,7 @@ public class generateData {
 
         double age,exp,rating,industry, salary;
         double base = 15000;
+        double[] factors = {1000, 300, 500, 0, 6000, 16000};
 
         age = Math.max(normal[0]*10+40,18);
         exp = 5 * normal[1]+10;
@@ -176,7 +186,7 @@ public class generateData {
                 IFAIL=1;
                 try {
                     g05sk.eval(3,0,2, STATE, x, IFAIL) ;
-			System.out.println("x[0]="+x[0]+"x[1]="+x[1]+"x[2]="+x[2]);
+//			System.out.println("x[0]="+x[0]+"x[1]="+x[1]+"x[2]="+x[2]);
                 } catch (Exception e) {
                     e.printStackTrace();
                     System.out.println("something went wrong with g05sk");
@@ -189,7 +199,7 @@ public class generateData {
                 IFAIL=1;
                 try {
                     g05sa.eval(1, STATE, urndm, IFAIL);
-			System.out.println("urndm="+urndm[0]);
+//			System.out.println("urndm="+urndm[0]);
                 } catch(Exception e) {
                     e.printStackTrace();
                     System.out.println("something went wrong with g05sa");
@@ -201,19 +211,10 @@ public class generateData {
                 if (urndm[0] < prob) {
                     ytest = 1.0;
                 }
-                writeLine(String.format("%.5f,%.5f,%.5f", ytest,x[0],x[1],x[2]));
+                writeLine(String.format("%.5f,%.5f,%.5f,%.5f", ytest,x[0],x[1],x[2]));
 
             }
             closeFile();
-        }
-    }
-
-    public static void main(String[] args) {
-        try {
-            generateData generator = new generateData(args);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("something went wrong");
         }
     }
 }
